@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLSP Ghost Core - Küresel Erişim Kapısı</title>
+    <title>ARNI GHOST CORE - Biyometrik Erişim Kapısı</title>
     <style>
         body {
             background-color: #050505;
@@ -79,8 +79,9 @@
 </head>
 <body>
     <div class="terminal">
-        <div>Microsoft Windows [Version 10.0.22631]</div>
-        <div>(c) Microsoft Corporation. Tüm hakları saklıdır.</div>
+        <!-- SENİN ÖZEL TASARIM İMZAN BURAYA MÜHÜRLENDİ -->
+        <div>⚡ ARNI GHOST CORE SECURITY SYSTEMS [Version 1.0.0]</div>
+        <div>(c) ARNI Contractors Ltd. Tüm hakları saklıdır.</div>
         <br>
         <div>[MERKEZİYESİZ BULUT HAFIZA AKTİF]</div>
         <div>Bu ekrandan üreteceğiniz biyometrik mühür, sizi her bilgisayarda tanıyacaktır.</div>
@@ -93,7 +94,7 @@
         
         <div class="sayac-alani">
             <span>KALE ERİŞİM SAYISI:</span>
-            <span id="sayacRakam">LÜKLÜ...</span>
+            <span id="sayacRakam">YÜKLENİYOR...</span>
         </div>
         
         <br>
@@ -108,7 +109,6 @@
         const notebook = document.getElementById('notebook');
         const sayacRakam = document.getElementById('sayacRakam');
         
-        // Tarayıcı hafızasını kullanarak otonom sayaç motoru
         let ziyaretSayisi = localStorage.getItem('blsp_hits') || 0;
         ziyaretSayisi = parseInt(ziyaretSayisi) + 1;
         localStorage.setItem('blsp_hits', ziyaretSayisi);
