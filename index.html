@@ -61,17 +61,19 @@
         .sistem-notu { color: #888888; }
         .muhur-notu { color: #ffff00; }
         
-        /* CANLI ZİYARETÇİ SAYACI ALANI */
         .sayac-alani {
             margin-top: 15px;
             text-align: right;
             font-size: 11px;
             color: #00aa00;
         }
-        .sayac-resmi {
-            vertical-align: middle;
-            margin-left: 5px;
+        #sayacRakam {
+            color: #00ff00;
+            font-weight: bold;
             border: 1px solid #00ff00;
+            padding: 2px 6px;
+            margin-left: 5px;
+            background: #0a0a0a;
         }
     </style>
 </head>
@@ -84,15 +86,14 @@
         <div>Bu ekrandan üreteceğiniz biyometrik mühür, sizi her bilgisayarda tanıyacaktır.</div>
         <br>
         <div class="biyometrik-alan" id="inputBox" tabindex="0">
-            <span id="status">[KÜRESEL MÜHÜR ALANI]<br>Tıklayın, gizli kelimenizi yazın ve Enter'a basin.</span>
+            <span id="status">[KÜRESEL MÜHÜR ALANI]<br>Tıklayın, gizli kelimenizi yazın ve Enter'a basın.</span>
         </div>
         
         <div class="not-defteri" id="notebook">--- SİSTEM NOT DEFTERİ BAŞLATILDI ---&#10;<span class='sistem-notu'>[BİLGİ] Bulut kalkanı 7/24 izleme modunda.</span></div>
         
-        <!-- OTONOM ZİYARETÇİ SAYACI -->
         <div class="sayac-alani">
             <span>KALE ERİŞİM SAYISI:</span>
-            <img class="sayac-resmi" src="https://seeyoufarm.com" alt="Sayaç"/>
+            <span id="sayacRakam">LÜKLÜ...</span>
         </div>
         
         <br>
@@ -105,7 +106,14 @@
         const inputBox = document.getElementById('inputBox');
         const status = document.getElementById('status');
         const notebook = document.getElementById('notebook');
+        const sayacRakam = document.getElementById('sayacRakam');
         
+        // Tarayıcı hafızasını kullanarak otonom sayaç motoru
+        let ziyaretSayisi = localStorage.getItem('blsp_hits') || 0;
+        ziyaretSayisi = parseInt(ziyaretSayisi) + 1;
+        localStorage.setItem('blsp_hits', ziyaretSayisi);
+        sayacRakam.innerText = ziyaretSayisi;
+
         function devedeNotYaz(metin, tip = 'sistem') {
             let zaman = new Date().toLocaleTimeString();
             let sinif = tip === 'muhur' ? 'muhur-notu' : 'sistem-notu';
