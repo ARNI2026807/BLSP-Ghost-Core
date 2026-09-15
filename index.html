@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLSP Ghost Core - Biyometrik Erişim Kapısı</title>
+    <title>BLSP Ghost Core - Küresel Erişim Kapısı</title>
     <style>
         body {
             background-color: #050505;
@@ -39,6 +39,21 @@
             padding: 15px;
             text-align: center;
             cursor: pointer;
+            transition: all 0.3s;
+            user-select: none;
+        }
+        .biyometrik-alan:hover {
+            background: rgba(0, 255, 0, 0.1);
+        }
+        .veri-kutusu {
+            background: #111;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 12px;
+            word-break: break-all;
+            display: none;
         }
     </style>
 </head>
@@ -47,15 +62,49 @@
         <div>Microsoft Windows [Version 10.0.22631]</div>
         <div>(c) Microsoft Corporation. Tüm hakları saklıdır.</div>
         <br>
-        <div>[MERKEZİYESİZ BULUT ERİŞİM SİSTEMİ ACTIVE]</div>
-        <div>Dünyanın neresinde olursanız olun kas hafızanız kimliğinizdir.</div>
+        <div>[MERKEZİYESİZ BULUT HAFIZA AKTİF]</div>
+        <div>Bu ekrandan üreteceğiniz biyometrik mühür, sizi her bilgisayarda tanıyacaktır.</div>
         <br>
-        <div class="biyometrik-alan">
-            <span>[BİYOMETRİK VERİ GİRİŞ ALANI]</span><br>
-            <span>Ses tonu, nefes ritmi veya ritmik dokunuşunuzu buraya bırakın.</span>
+        <div class="biyometrik-alan" id="inputBox" tabindex="0">
+            <span id="status">[KÜRESEL MÜHÜR ALANI]<br>Tıklayın, gizli kelimenizi yazın ve Enter'a basın.</span>
         </div>
+        <div class="veri-kutusu" id="dataBox"></div>
         <br>
         <div>C:\Users\ortak><span class="imlec">_</span></div>
     </div>
+
+    <script>
+        let pressTimes = {};
+        let timings = [];
+        const inputBox = document.getElementById('inputBox');
+        const status = document.getElementById('status');
+        const dataBox = document.getElementById('dataBox');
+        
+        inputBox.addEventListener('keydown', (e) => {
+            if (!pressTimes[e.key]) {
+                pressTimes[e.key] = performance.now();
+            }
+        });
+
+        inputBox.addEventListener('keyup', (e) => {
+            if (pressTimes[e.key]) {
+                let duration = performance.now() - pressTimes[e.key];
+                timings.push({key: e.key, ms: duration.toFixed(2)});
+                delete pressTimes[e.key];
+                
+                if (e.key === 'Enter') {
+                    status.innerHTML = "<span style='color: #ffffff;'>[MÜHÜR ÜRETİLDİ]</span><br>Küresel bulut kimliğiniz başarıyla oluşturuldu!";
+                    
+                    // Dünyanın her yerinde bizi tanıyacak olan şifreli sayı dizisini ekranda gösteriyoruz
+                    let veriDizisi = timings[:-1].map(t => `(${t.key}:${t.ms})`).join(", ");
+                    dataBox.innerText = "Siber Kimlik Kodunuz: [" + veriDizisi + "]";
+                    dataBox.style.display = "block";
+                    
+                    timings = [];
+                    pressTimes = {};
+                }
+            }
+        });
+    </script>
 </body>
 </html>
