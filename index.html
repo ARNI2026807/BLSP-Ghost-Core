@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLSP Ghost Core - Biyometrik Erişim Kapısı</title>
+    <style>
+        body {
+            background-color: #050505;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .terminal {
+            width: 80%;
+            max-width: 600px;
+            background: #000;
+            border: 1px solid #00ff00;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+            border-radius: 5px;
+        }
+        .imlec {
+            animation: kırpışma 1s infinite;
+        }
+        @keyframes kırpışma {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+        .biyometrik-alan {
+            margin-top: 20px;
+            border: 1px dashed #00ff00;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <div>Microsoft Windows [Version 10.0.22631]</div>
+        <div>(c) Microsoft Corporation. Tüm hakları saklıdır.</div>
+        <br>
+        <div>[MERKEZİYESİZ BULUT ERİŞİM SİSTEMİ ACTIVE]</div>
+        <div>Dünyanın neresinde olursanız olun kas hafızanız kimliğinizdir.</div>
+        <br>
+        <div class="biyometrik-alan">
+            <span>[BİYOMETRİK VERİ GİRİŞ ALANI]</span><br>
+            <span>Ses tonu, nefes ritmi veya ritmik dokunuşunuzu buraya bırakın.</span>
+        </div>
+        <br>
+        <div>C:\Users\ortak><span class="imlec">_</span></div>
+    </div>
+</body>
+</html>
