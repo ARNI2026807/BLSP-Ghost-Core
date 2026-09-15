@@ -45,7 +45,6 @@
         .biyometrik-alan:hover {
             background: rgba(0, 255, 0, 0.1);
         }
-        /* SİSTEM NOT DEFTERİ ALANI */
         .not-defteri {
             width: 100%;
             height: 120px;
@@ -59,11 +58,20 @@
             box-sizing: border-box;
             white-space: pre-wrap;
         }
-        .sistem-notu {
-            color: #888888;
+        .sistem-notu { color: #888888; }
+        .muhur-notu { color: #ffff00; }
+        
+        /* CANLI ZİYARETÇİ SAYACI ALANI */
+        .sayac-alani {
+            margin-top: 15px;
+            text-align: right;
+            font-size: 11px;
+            color: #00aa00;
         }
-        .muhur-notu {
-            color: #ffff00;
+        .sayac-resmi {
+            vertical-align: middle;
+            margin-left: 5px;
+            border: 1px solid #00ff00;
         }
     </style>
 </head>
@@ -76,11 +84,16 @@
         <div>Bu ekrandan üreteceğiniz biyometrik mühür, sizi her bilgisayarda tanıyacaktır.</div>
         <br>
         <div class="biyometrik-alan" id="inputBox" tabindex="0">
-            <span id="status">[KÜRESEL MÜHÜR ALANI]<br>Tıklayın, gizli kelimenizi yazın ve Enter'a basın.</span>
+            <span id="status">[KÜRESEL MÜHÜR ALANI]<br>Tıklayın, gizli kelimenizi yazın ve Enter'a basin.</span>
         </div>
         
-        <!-- İÇİNDE İŞLEMLERİ GÖRECEĞİMİZ OTONOM NOT DEFTERİ -->
         <div class="not-defteri" id="notebook">--- SİSTEM NOT DEFTERİ BAŞLATILDI ---&#10;<span class='sistem-notu'>[BİLGİ] Bulut kalkanı 7/24 izleme modunda.</span></div>
+        
+        <!-- OTONOM ZİYARETÇİ SAYACI -->
+        <div class="sayac-alani">
+            <span>KALE ERİŞİM SAYISI:</span>
+            <img class="sayac-resmi" src="https://seeyoufarm.com" alt="Sayaç"/>
+        </div>
         
         <br>
         <div>C:\Users\ortak><span class="imlec">_</span></div>
@@ -97,7 +110,7 @@
             let zaman = new Date().toLocaleTimeString();
             let sinif = tip === 'muhur' ? 'muhur-notu' : 'sistem-notu';
             notebook.innerHTML += `&#10;[${zaman}] <span class="${sinif}">${metin}</span>`;
-            notebook.scrollTop = notebook.scrollHeight; // Defteri otomatik aşağı kaydır
+            notebook.scrollTop = notebook.scrollHeight;
         }
 
         inputBox.addEventListener('keydown', (e) => {
