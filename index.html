@@ -45,15 +45,25 @@
         .biyometrik-alan:hover {
             background: rgba(0, 255, 0, 0.1);
         }
-        .veri-kutusu {
-            background: #111;
-            border: 1px solid #00ff00;
-            color: #00ff00;
-            padding: 10px;
+        /* SİSTEM NOT DEFTERİ ALANI */
+        .not-defteri {
+            width: 100%;
+            height: 120px;
+            background: #0a0a0a;
+            border: 1px solid #00aa00;
             margin-top: 15px;
-            font-size: 12px;
-            word-break: break-all;
-            display: none;
+            padding: 10px;
+            font-size: 11px;
+            color: #00ff00;
+            overflow-y: auto;
+            box-sizing: border-box;
+            white-space: pre-wrap;
+        }
+        .sistem-notu {
+            color: #888888;
+        }
+        .muhur-notu {
+            color: #ffff00;
         }
     </style>
 </head>
@@ -68,7 +78,10 @@
         <div class="biyometrik-alan" id="inputBox" tabindex="0">
             <span id="status">[KÜRESEL MÜHÜR ALANI]<br>Tıklayın, gizli kelimenizi yazın ve Enter'a basın.</span>
         </div>
-        <div class="veri-kutusu" id="dataBox"></div>
+        
+        <!-- İÇİNDE İŞLEMLERİ GÖRECEĞİMİZ OTONOM NOT DEFTERİ -->
+        <div class="not-defteri" id="notebook">--- SİSTEM NOT DEFTERİ BAŞLATILDI ---&#10;<span class='sistem-notu'>[BİLGİ] Bulut kalkanı 7/24 izleme modunda.</span></div>
+        
         <br>
         <div>C:\Users\ortak><span class="imlec">_</span></div>
     </div>
@@ -78,11 +91,19 @@
         let timings = [];
         const inputBox = document.getElementById('inputBox');
         const status = document.getElementById('status');
-        const dataBox = document.getElementById('dataBox');
+        const notebook = document.getElementById('notebook');
         
+        function devedeNotYaz(metin, tip = 'sistem') {
+            let zaman = new Date().toLocaleTimeString();
+            let sinif = tip === 'muhur' ? 'muhur-notu' : 'sistem-notu';
+            notebook.innerHTML += `&#10;[${zaman}] <span class="${sinif}">${metin}</span>`;
+            notebook.scrollTop = notebook.scrollHeight; // Defteri otomatik aşağı kaydır
+        }
+
         inputBox.addEventListener('keydown', (e) => {
             if (!pressTimes[e.key]) {
                 pressTimes[e.key] = performance.now();
+                devedeNotYaz(`Tuşa basıldı: "${e.key}"`);
             }
         });
 
@@ -93,12 +114,10 @@
                 delete pressTimes[e.key];
                 
                 if (e.key === 'Enter') {
-                    status.innerHTML = "<span style='color: #ffffff;'>[MÜHÜR ÜRETİLDİ]</span><br>Küresel bulut kimliğiniz başarıyla oluşturuldu!";
+                    status.innerHTML = "<span style='color: #ffffff;'>[MÜHÜR ÜRETİLDİ]</span><br>Kas hafızası başarıyla ölçüldü. İşlemler deftere işlendi.";
                     
-                    // Dünyanın her yerinde bizi tanıyacak olan şifreli sayı dizisini ekranda gösteriyoruz
-                    let veriDizisi = timings[:-1].map(t => `(${t.key}:${t.ms})`).join(", ");
-                    dataBox.innerText = "Siber Kimlik Kodunuz: [" + veriDizisi + "]";
-                    dataBox.style.display = "block";
+                    let veriDizisi = timings.slice(0, -1).map(t => `${t.key}:${t.ms}ms`).join(", ");
+                    devedeNotYaz(`KÜRESEL MÜHÜR OLUŞTURULDU -> [${veriDizisi}]`, 'muhur');
                     
                     timings = [];
                     pressTimes = {};
